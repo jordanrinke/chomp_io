@@ -1,0 +1,78 @@
+food:
+id
+name #Skippy Creamy Peanut Butter
+category_id
+picture_id
+g_to_ml (float 20,10) #used to derive nutrition info for any measurement/size null for unknown
+
+nutrition: #per 100g
+id
+food_id
+nutrient_id
+value(float 20,10)
+
+nutrient:
+id
+name
+size_id
+
+category: #e.g. Peanut Butter
+id
+name
+
+picture:
+id
+name
+
+package
+id
+name #1 spoon full, 2.2kg Plastic tub
+company_id
+food_id
+picture_id
+upc (bigint)
+package_size
+size_id
+
+'''
+some processing is needed here to figure out conversions. If someone is entering a new
+item, and they fill out the package details some of this should be possible determine.
+Ideally some user somewhere or likely I will measure a volume to determine the g_to_mr ratio
+which makes everything else possible
+
+I think I can default items with an unknown ratio with a null conversion ratio
+just allowing them not to be converted from volume to weight. But the packaging should still
+set the
+'''
+
+price:
+id
+store_id
+value
+date
+currency  #depends on babel processing
+locale  #depends on babel processing
+submiter_id #account_id
+
+package
+company:
+id
+name
+
+store:
+id
+company_id
+address
+city
+state
+postal
+country
+
+size:
+id
+name
+display_name
+
+account:
+id
+name
