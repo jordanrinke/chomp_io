@@ -1,9 +1,22 @@
+'''
+I have an issue here, one that I think is the reason most sites are the way
+that they are. I need to have parent food items, and conversions.
+
+For instance Onion > Yellow Onion > Chopped Yellow Onion
+and I need to know that 1/2 of an average medium onion equal say 2 cups of
+chopped yellow onion.
+
+On top of that, I want to be able to convert to other substitues. So for
+instance, 2 cups of chopped yellow onion could be substituted for 8Tbsp of
+onion flakes or 4Tbsp of onion powder whatever the conversion matrix is there.
+'''
+
 food:
 id
-name #Skippy Creamy Peanut Butter
-category_id
+name # Skippy Creamy Peanut Butter
+parent_id (ref to another food id)
 picture_id
-g_to_ml (float 20,10) #used to derive nutrition info for any measurement/size null for unknown
+g_per_ml (float 20,10) # used to derive nutrition info for any measurement/size null for unknown - grams per ml
 
 nutrition: #per 100g
 id
@@ -16,17 +29,21 @@ id
 name
 size_id
 
-category: #e.g. Peanut Butter
-id
-name
-
 picture:
 id
 name
+submiter_id
+uploaded (date)
 
 package
 id
 name #1 spoon full, 2.2kg Plastic tub
+parent_id (ref to another package)
+quantity_per_parent (int)
+# the idea here is for sizing, say a package of pre-cut celery from costco
+# we know it is X grams and could guess it has X medium sticks of celery
+# but the package likely says it has at least Y number of sticks in it.
+# also case/bulk orders can be abstracted this way
 company_id
 food_id
 picture_id
@@ -37,7 +54,7 @@ size_id
 '''
 some processing is needed here to figure out conversions. If someone is entering a new
 item, and they fill out the package details some of this should be possible determine.
-Ideally some user somewhere or likely I will measure a volume to determine the g_to_mr ratio
+Ideally some user somewhere or likely I will measure a volume to determine the g_per_ml ratio
 which makes everything else possible
 
 I think I can default items with an unknown ratio with a null conversion ratio
@@ -51,11 +68,10 @@ id
 store_id
 value
 date
-currency  #depends on babel processing
-locale  #depends on babel processing
+currency  # depends on babel processing
+locale  # depends on babel processing
 submiter_id #account_id
 
-package
 company:
 id
 name
@@ -69,6 +85,7 @@ state
 postal
 country
 
+#conversion table will be static in code
 size:
 id
 name
