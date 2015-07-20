@@ -9,12 +9,21 @@ chopped yellow onion.
 On top of that, I want to be able to convert to other substitues. So for
 instance, 2 cups of chopped yellow onion could be substituted for 8Tbsp of
 onion flakes or 4Tbsp of onion powder whatever the conversion matrix is there.
+
+Hmm maybe a substitution table, g_per_g
 '''
+
+substitutes: # couldn't think of better naming to only need one row for each way
+id
+master_food_id # onion
+g_per_g
+food_id #onion powder
 
 food:
 id
 name # Skippy Creamy Peanut Butter
 parent_id (ref to another food id)
+master_id (ref to source food)
 picture_id
 g_per_ml (float 20,10) # used to derive nutrition info for any measurement/size null for unknown - grams per ml
 
